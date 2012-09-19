@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 from setuptools import setup
 
-setup(name='django-options',
+setup(name='options',
       version='0.0.1',
       description='Options for django admin. Administrator emails, phones, contact data, etc.',
       long_description='',
       author='Vital Belikov',
       author_email='vital@qwe.lv',
+      packages=['options']
       url='https://github.com/Brick85/options/',
       include_package_data = True,
       zip_safe = False,

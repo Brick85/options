@@ -1,1 +1,1 @@
-recursive-include options/locale *.mo
+recursive-include options/locale *

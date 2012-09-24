@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name='options',
-      version='0.0.1',
+      version='0.0.2',
       description='Options for django admin. Administrator emails, phones, contact data, etc.',
       long_description='',
       author='Vital Belikov',

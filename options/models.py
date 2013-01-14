@@ -1,47 +1,90 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+
+class OptionCache(object):
+    _cache = {}
+
+    @staticmethod
+    def get(key):
+        try:
+            return OptionCache._cache[key]
+        except:
+            return None
+
+    @staticmethod
+    def set(key, value):
+        OptionCache._cache[key] = value
+
+    @staticmethod
+    def delete(key):
+        del OptionCache._cache[key]
+
+
 class Option(models.Model):
     """
     Options model
     """
-    key = models.CharField(_('Key'), max_length=50, db_index=True)
+    key = models.CharField(_('Key'), max_length=50, unique=True)
     value = models.CharField(_('Value'), max_length=256)
 
-    _cache = {}
+    cache_mask = 'qo_o_{0}'
 
     class Meta:
         verbose_name = _('option')
         verbose_name_plural = _('options')
         ordering = ['key']
 
+    def __unicode__(self):
+        return self.key
+
     def save(self, *args, **kwargs):
-    	super(Option, self).save(*args, **kwargs)
-    	try:
-    		del Option._cache[self.key]
-    	except KeyError:
-    		pass
+        super(Option, self).save(*args, **kwargs)
+        try:
+            OptionCache.delete(Option.cache_mask.format(self.key))
+        except KeyError:
+            pass
+
+
+class Label(models.Model):
+    key = models.CharField(_('Key'), max_length=50, unique=True)
+    value = models.CharField(_('Value'), max_length=256)
+
+    cache_mask = 'qo_l_{0}'
+
+    class Meta:
+        verbose_name = _('label')
+        verbose_name_plural = _('labels')
+        ordering = ['key']
 
     def __unicode__(self):
         return self.key
 
+    def save(self, *args, **kwargs):
+        super(Label, self).save(*args, **kwargs)
+        try:
+            OptionCache.delete(Label.cache_mask.format(self.key))
+        except KeyError:
+            pass
 
-    @staticmethod
-    def getValues(key):
-    	if not key in Option._cache.keys():
-    		arr = []
-	    	for opt in Option.objects.filter(key=key):
-	    		arr.append(opt.value)
-	    	Option._cache[key] = arr
-    	return Option._cache[key]
 
-    @staticmethod
-    def getValue(key):
-    	if not key in Option._cache.keys():
-	    	opt = Option.objects.filter(key=key)[0]
-	    	Option._cache[key] = opt.value
-    	return Option._cache[key]
+class Text(models.Model):
+    key = models.CharField(_('Key'), max_length=50, unique=True)
+    value = models.TextField(_('Value'))
 
-    @staticmethod
-    def getInt(key):
-    	return int(Option.getValue(key))
+    cache_mask = 'qo_t_{0}'
+
+    class Meta:
+        verbose_name = _('text')
+        verbose_name_plural = _('texts')
+        ordering = ['key']
+
+    def __unicode__(self):
+        return self.key
+
+    def save(self, *args, **kwargs):
+        super(Text, self).save(*args, **kwargs)
+        try:
+            OptionCache.delete(Text.cache_mask.format(self.key))
+        except KeyError:
+            pass

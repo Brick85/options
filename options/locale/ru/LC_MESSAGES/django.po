@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-24 18:05+0300\n"
+"POT-Creation-Date: 2013-01-14 20:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,18 +19,34 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: models.py:5
+#: models.py:28 models.py:50 models.py:72
 msgid "Key"
 msgstr "Ключ"
 
-#: models.py:6
+#: models.py:29 models.py:51 models.py:73
 msgid "Value"
 msgstr "Значение"
 
-#: models.py:11
+#: models.py:34
 msgid "option"
 msgstr "опция"
 
-#: models.py:12
+#: models.py:35
 msgid "options"
 msgstr "опции"
+
+#: models.py:56
+msgid "label"
+msgstr "текстовая метка"
+
+#: models.py:57
+msgid "labels"
+msgstr "текстовые метки"
+
+#: models.py:78
+msgid "text"
+msgstr "текст"
+
+#: models.py:79
+msgid "texts"
+msgstr "тексты"

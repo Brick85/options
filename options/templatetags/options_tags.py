@@ -3,6 +3,7 @@ from options.models import Option
 
 register = template.Library()
 
+
 @register.simple_tag(takes_context=True)
 def getOption(context, key, as_var=None):
     try:

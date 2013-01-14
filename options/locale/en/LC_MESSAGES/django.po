@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-24 18:05+0300\n"
+"POT-Creation-Date: 2013-01-14 20:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,34 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:5
+#: models.py:28 models.py:50 models.py:72
 msgid "Key"
 msgstr "Key"
 
-#: models.py:6
+#: models.py:29 models.py:51 models.py:73
 msgid "Value"
 msgstr "Value"
 
-#: models.py:11
+#: models.py:34
 msgid "option"
 msgstr "option"
 
-#: models.py:12
+#: models.py:35
 msgid "options"
 msgstr "options"
+
+#: models.py:56
+msgid "label"
+msgstr ""
+
+#: models.py:57
+msgid "labels"
+msgstr ""
+
+#: models.py:78
+msgid "text"
+msgstr ""
+
+#: models.py:79
+msgid "texts"
+msgstr ""

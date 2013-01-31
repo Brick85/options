@@ -42,7 +42,7 @@ Or if you want return to context variable:
 {{ my_label_key }}
 ```
 
-With texts it's a little more complicated. You need two texts, but you probably do not wont hit database or cache twice. So we retrun first variable directly and second as context variable.
+With texts it's a little more complicated. You need two texts, but you probably do not wont hit database or cache twice. So we return first variable directly and second as context variable.
 
 ```python
 {% get_text 'your_text_key' 'my_title' %}

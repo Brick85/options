@@ -1,4 +1,5 @@
 from models import OptionCache, Option, Label, Text
+from django.utils.translation import get_language
 
 
 def get_option(key, fail_silently=True):
@@ -14,12 +15,15 @@ def get_text(key, fail_silently=True):
 
 
 def _get_qoption_value(model, key, fail_silently):
-    cache_key = model.cache_mask.format(key)
+    cache_key = model.cache_mask.format(get_language(), key)
     value = OptionCache.get(cache_key)
     if not value:
         try:
             opt = model.objects.get(key=key)
-            value = opt.value
+            if hasattr(opt, 'title'):
+                value = [opt.title, opt.text]
+            else:
+                value = opt.value
         except model.DoesNotExist:
             if fail_silently:
                 value = ''
@@ -27,7 +31,11 @@ def _get_qoption_value(model, key, fail_silently):
                 raise model.DoesNotExist('No record with key "{0}"'.format(key))
         except model.MultipleObjectsReturned:
             if fail_silently:
-                value = model.objects.filter(key=key)[0]
+                opt = model.objects.filter(key=key)[0]
+                if hasattr(opt, 'title'):
+                    value = [opt.title, opt.text]
+                else:
+                    value = opt.value
             else:
                 raise model.DoesNotExist('Returned more than one record with key "{0}"'.format(key))
 

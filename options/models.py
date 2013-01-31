@@ -28,7 +28,7 @@ class Option(models.Model):
     key = models.CharField(_('Key'), max_length=50, unique=True)
     value = models.CharField(_('Value'), max_length=256)
 
-    cache_mask = 'qo_o_{0}'
+    cache_mask = 'qo_o_{0}_{1}'
 
     class Meta:
         verbose_name = _('option')
@@ -50,7 +50,7 @@ class Label(models.Model):
     key = models.CharField(_('Key'), max_length=50, unique=True)
     value = models.CharField(_('Value'), max_length=256)
 
-    cache_mask = 'qo_l_{0}'
+    cache_mask = 'qo_l_{0}_{1}'
 
     class Meta:
         verbose_name = _('label')
@@ -70,9 +70,10 @@ class Label(models.Model):
 
 class Text(models.Model):
     key = models.CharField(_('Key'), max_length=50, unique=True)
-    value = models.TextField(_('Value'))
+    title = models.CharField(_('Title'), max_length=256, blank=True)
+    text = models.TextField(_('Text'))
 
-    cache_mask = 'qo_t_{0}'
+    cache_mask = 'qo_t_{0}_{1}'
 
     class Meta:
         verbose_name = _('text')

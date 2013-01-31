@@ -20,9 +20,9 @@ In python code you can use:
 
 ```python
 from options import get_option, get_label, get_text
-print get_option('your_option_key')
-print get_label('your_label_key')
-print get_text('your_text_key')
+print get_option('your_option_key')  # 'value'
+print get_label('your_label_key')  # 'value'
+print get_text('your_text_key')  # ['title', 'text']
 ```
 
 In templates:
@@ -31,5 +31,38 @@ In templates:
 {% load options_tags %}
 {% get_option 'your_option_key' %}
 {% get_label 'your_label_key' %}
-{% get_text 'your_text_key' %}
+```
+
+Or if you want return to context variable:
+
+```python
+{% get_option 'your_option_key' 'my_option_key' %}
+{{ my_option_key }}
+{% get_label 'your_label_key' 'my_label_key' %}
+{{ my_label_key }}
+```
+
+With texts it's a little more complicated. You need two texts, but you probably do not wont hit database or cache twice. So we retrun first variable directly and second as context variable.
+
+```python
+{% get_text 'your_text_key' 'my_title' %}
+{{ my_title }}
+
+OR (if you need title first)
+
+{% get_text_title 'your_text_key' 'my_text' %}
+{{ my_text }}
+```
+
+Ofcourse we can return both variables as context variables:
+
+```python
+{% get_text 'your_text_key' 'my_title' 'my_text' %}
+
+OR
+
+{% get_text_title 'your_text_key' 'my_text' 'my_title' %}
+
+AND
+{{ my_title }}: {{ my_text }}
 ```

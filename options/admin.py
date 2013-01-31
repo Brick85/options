@@ -28,7 +28,7 @@ class QOptionLabelAdmin(QOptionModelAdminTranslated):
 
 
 class QOptionTextAdmin(QOptionModelAdminTranslated):
-    list_display = ('key', 'value')
+    list_display = ('key', 'title')
     formfield_overrides = qoptions_formfield_overrides
 
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import get_language
 
 
 class OptionCache(object):
@@ -8,13 +9,15 @@ class OptionCache(object):
     @staticmethod
     def get(key):
         try:
-            return OptionCache._cache[key]
+            return OptionCache._cache[key][get_language()]
         except:
             return None
 
     @staticmethod
     def set(key, value):
-        OptionCache._cache[key] = value
+        if key not in OptionCache._cache:
+            OptionCache._cache[key] = {}
+        OptionCache._cache[key][get_language()] = value
 
     @staticmethod
     def delete(key):
@@ -28,7 +31,7 @@ class Option(models.Model):
     key = models.CharField(_('Key'), max_length=50, unique=True)
     value = models.CharField(_('Value'), max_length=256)
 
-    cache_mask = 'qo_o_{0}_{1}'
+    cache_mask = 'qo_o_{0}'
 
     class Meta:
         verbose_name = _('option')
@@ -50,7 +53,7 @@ class Label(models.Model):
     key = models.CharField(_('Key'), max_length=50, unique=True)
     value = models.CharField(_('Value'), max_length=256)
 
-    cache_mask = 'qo_l_{0}_{1}'
+    cache_mask = 'qo_l_{0}'
 
     class Meta:
         verbose_name = _('label')
@@ -73,7 +76,7 @@ class Text(models.Model):
     title = models.CharField(_('Title'), max_length=256, blank=True)
     text = models.TextField(_('Text'))
 
-    cache_mask = 'qo_t_{0}_{1}'
+    cache_mask = 'qo_t_{0}'
 
     class Meta:
         verbose_name = _('text')

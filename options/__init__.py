@@ -1,5 +1,4 @@
 from models import OptionCache, Option, Label, Text
-from django.utils.translation import get_language
 
 
 def get_option(key, fail_silently=True):
@@ -15,7 +14,7 @@ def get_text(key, fail_silently=True):
 
 
 def _get_qoption_value(model, key, fail_silently):
-    cache_key = model.cache_mask.format(get_language(), key)
+    cache_key = model.cache_mask.format(key)
     value = OptionCache.get(cache_key)
     if not value:
         try:

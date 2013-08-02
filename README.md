@@ -28,7 +28,7 @@ print get_text('your_text_key')  # ['title', 'text']
 In templates:
 
 ```python
-{% load options_tags %}
+{% load options %}
 {% get_option 'your_option_key' %}
 {% get_label 'your_label_key' %}
 ```

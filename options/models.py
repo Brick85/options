@@ -1,27 +1,39 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
+from django.core.cache import cache
 
 
 class OptionCache(object):
-    _cache = {}
+    langs_cache_key = 'qoptlangs'
+
+    @staticmethod
+    def _getkey(key, lang=None):
+        if lang is None:
+            lang = get_language()
+        return "qopt_%s_%s" % (key, lang)
 
     @staticmethod
     def get(key):
-        try:
-            return OptionCache._cache[key][get_language()]
-        except:
-            return None
+        return cache.get(OptionCache._getkey(key), None)
 
     @staticmethod
     def set(key, value):
-        if key not in OptionCache._cache:
-            OptionCache._cache[key] = {}
-        OptionCache._cache[key][get_language()] = value
+        lang = get_language()
+        langs = cache.get(OptionCache.langs_cache_key, set())
+        langs.add(lang)
+        cache.set(OptionCache.langs_cache_key, langs)
+
+        cache.set(OptionCache._getkey(key), value)
 
     @staticmethod
     def delete(key):
-        del OptionCache._cache[key]
+        cache.delete(OptionCache._getkey(key))
+
+    @staticmethod
+    def delete_all_langs(key):
+        for lang in cache.get(OptionCache.langs_cache_key, set()):
+            cache.delete(OptionCache._getkey(key, lang))
 
 
 class Option(models.Model):
@@ -44,7 +56,7 @@ class Option(models.Model):
     def save(self, *args, **kwargs):
         super(Option, self).save(*args, **kwargs)
         try:
-            OptionCache.delete(Option.cache_mask.format(self.key))
+            OptionCache.delete_all_langs(Option.cache_mask.format(self.key))
         except KeyError:
             pass
 
@@ -66,7 +78,7 @@ class Label(models.Model):
     def save(self, *args, **kwargs):
         super(Label, self).save(*args, **kwargs)
         try:
-            OptionCache.delete(Label.cache_mask.format(self.key))
+            OptionCache.delete_all_langs(Label.cache_mask.format(self.key))
         except KeyError:
             pass
 
@@ -89,6 +101,6 @@ class Text(models.Model):
     def save(self, *args, **kwargs):
         super(Text, self).save(*args, **kwargs)
         try:
-            OptionCache.delete(Text.cache_mask.format(self.key))
+            OptionCache.delete_all_langs(Text.cache_mask.format(self.key))
         except KeyError:
             pass

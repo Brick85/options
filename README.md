@@ -19,7 +19,7 @@ Add 'tinymce' to INSTALLED_APPS
 In python code you can use:
 
 ```python
-from options import get_option, get_label, get_text
+from options.functions import get_option, get_label, get_text
 print get_option('your_option_key')  # 'value'
 print get_label('your_label_key')  # 'value'
 print get_text('your_text_key')  # ['title', 'text']

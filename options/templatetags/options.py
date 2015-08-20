@@ -1,5 +1,5 @@
 from django import template
-from .. import get_option as get_option_source, get_label as get_label_source, get_text as get_text_source
+from ..functions import get_option as get_option_source, get_label as get_label_source, get_text as get_text_source
 
 register = template.Library()
 

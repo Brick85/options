@@ -1,4 +1,5 @@
 from options.models import OptionCache, Option, Label, Text
+from options import options_settings
 
 
 def get_option(key, fail_silently=True):
@@ -28,6 +29,11 @@ def _get_qoption_value(model, key, fail_silently, return_tuple=False):
             else:
                 value = opt.value
         except model.DoesNotExist:
+            if options_settings.CREATE_ITEMS:
+                opt = model()
+                opt.key = key
+                opt.save()
+                value = default
             if fail_silently:
                 value = default
             else:

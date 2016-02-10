@@ -1,5 +1,6 @@
 from options.models import OptionCache, Option, Label, Text
 from options import options_settings
+from django.utils.safestring import mark_safe
 
 
 def get_option(key, fail_silently=True):
@@ -25,9 +26,9 @@ def _get_qoption_value(model, key, fail_silently, return_tuple=False):
         try:
             opt = model.objects.get(key=key)
             if return_tuple:
-                value = [opt.title, opt.text]
+                value = [mark_safe(opt.title), mark_safe(opt.text)]
             else:
-                value = opt.value
+                value = mark_safe(opt.value)
         except model.DoesNotExist:
             if options_settings.CREATE_ITEMS:
                 opt = model()
@@ -42,9 +43,9 @@ def _get_qoption_value(model, key, fail_silently, return_tuple=False):
             if fail_silently:
                 opt = model.objects.filter(key=key)[0]
                 if return_tuple:
-                    value = [opt.title, opt.text]
+                    value = [mark_safe(opt.title), mark_safe(opt.text)]
                 else:
-                    value = default
+                    value = mark_safe(opt.value)
             else:
                 raise model.DoesNotExist('Returned more than one record with key "{0}"'.format(key))
 

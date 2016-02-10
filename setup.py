@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name='django-qoptions',
-      version='0.1.5',
+      version='0.1.6',
       description='Options, Labels and standalone Texts for django admin. Administrator emails, phones, contact data, etc.',
       long_description='Options package allows you to create records in database, wich you can use in your templates and views.',
       author='Vital Belikov',

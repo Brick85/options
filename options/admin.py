@@ -37,7 +37,11 @@ class KeyLockMixin(object):
 
 class QOptionOptionAdmin(KeyLockMixin, admin.ModelAdmin):
     list_display = ('key', 'value')
-
+    fieldsets = (
+        (None, {
+            'fields': ('key', 'value',)
+        }),
+    )
 
 class QOptionLabelAdmin(KeyLockMixin, QOptionModelAdminTranslated):
     list_display = ('key', 'value')
@@ -51,6 +55,11 @@ class QOptionLabelAdmin(KeyLockMixin, QOptionModelAdminTranslated):
 
 class QOptionTextAdmin(KeyLockMixin, QOptionModelAdminTranslated):
     list_display = ('key', 'title')
+    fieldsets = (
+        (None, {
+            'fields': ('key', 'title', 'text')
+        }),
+    )
     formfield_overrides = qoptions_formfield_overrides
 
 

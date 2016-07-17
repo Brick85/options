@@ -1,4 +1,5 @@
 from django import template
+from ..options_settings import DISPLAY_EDIT_LINK
 from ..functions import get_option as get_option_source, get_label as get_label_source, get_text as get_text_source
 
 register = template.Library()
@@ -35,8 +36,13 @@ def get_text_title(context, key, text_var='text', as_var=None):
 
 
 def _get_qoption_value(function, context, key, as_var):
+    if DISPLAY_EDIT_LINK and context['user'].is_authenticated() and context['user'].is_superuser:
+        editable = True
+    else:
+        editable = False
+
     try:
-        ret = function(key)
+        ret = function(key, editable=editable)
     except:
         ret = ""
 

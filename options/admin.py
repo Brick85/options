@@ -9,14 +9,21 @@ if 'modeltranslation' in settings.INSTALLED_APPS:
 else:
     QOptionModelAdminTranslated = admin.ModelAdmin
 
-if 'tinymce' in settings.INSTALLED_APPS:
+if 'ckeditor_uploader' in settings.INSTALLED_APPS:
     from django.db import models
-    from tinymce.widgets import AdminTinyMCE
+    from ckeditor_uploader.widgets import CKEditorUploadingWidget
     qoptions_formfield_overrides = {
-        models.TextField: {'widget': AdminTinyMCE},
+        models.TextField: {'widget': CKEditorUploadingWidget},
+    }
+elif 'ckeditor' in settings.INSTALLED_APPS:
+    from django.db import models
+    from ckeditor.widgets import CKEditorWidget
+    qoptions_formfield_overrides = {
+        models.TextField: {'widget': CKEditorWidget},
     }
 else:
     qoptions_formfield_overrides = {}
+
 
 class KeyLockMixin(object):
     if not settings.DEBUG:

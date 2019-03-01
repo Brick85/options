@@ -1,6 +1,7 @@
-from options.models import OptionCache, Option, Label, Text
 from options import options_settings
-from django.utils.safestring import mark_safe
+from options.models import OptionCache, Option, Label, Text
+
+from django.utils.html import mark_safe
 
 
 def get_option(key, fail_silently=True):

@@ -66,3 +66,18 @@ OR
 AND
 {{ my_title }}: {{ my_text }}
 ```
+
+### Edit links for superuser on front end
+
+Title and text:
+
+```html
+<h1>{% get_editable_text_title 'your_text_key' as_var='my_text' %}</h1>
+<div>{{ my_text }}</div>
+```
+
+Labels:
+
+```html
+<span>{% get_editable_label 'your_text_key' %}</span>
+```

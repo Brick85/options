@@ -50,7 +50,7 @@ class Option(models.Model):
         verbose_name_plural = _('options')
         ordering = ['key']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.key
 
     def save(self, *args, **kwargs):
@@ -72,7 +72,7 @@ class Label(models.Model):
         verbose_name_plural = _('labels')
         ordering = ['key']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.key
 
     def save(self, *args, **kwargs):
@@ -95,7 +95,7 @@ class Text(models.Model):
         verbose_name_plural = _('texts')
         ordering = ['key']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.key
 
     def save(self, *args, **kwargs):
